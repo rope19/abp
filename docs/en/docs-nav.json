@@ -221,8 +221,11 @@
     },
     {
       "text": "Domain Driven Design",
-      "path": "Domain-Driven-Design.md",
       "items": [
+        {
+          "text": "Overall",
+          "path": "Domain-Driven-Design.md"
+        },
         {
           "text": "Domain Layer",
           "items": [
@@ -292,7 +295,17 @@
             },
             {
               "text": "Tag Helpers",
-              "path": "UI/AspNetCore/Tag-Helpers/Index.md"
+              "path": "UI/AspNetCore/Tag-Helpers/Index.md",
+              "items": [
+                {
+                  "text": "Form Elements",
+                  "path": "UI/AspNetCore/Tag-Helpers/Form-elements.md"
+                },
+                {
+                  "text": "Dynamic Forms",
+                  "path": "UI/AspNetCore/Tag-Helpers/Dynamic-Forms.md"
+                }
+              ]
             },
             {
               "text": "Widgets",
@@ -328,6 +341,14 @@
               "path": "UI/Angular/Permission-Management.md"
             },
             {
+              "text": "Confirmation Popup",
+              "path": "UI/Angular/Confirmation-Service.md"
+            },
+            {
+              "text": "Toast Overlay",
+              "path": "UI/Angular/Toaster-Service.md"
+            },
+            {
               "text": "Config State",
               "path": "UI/Angular/Config-State.md"
             },
@@ -348,6 +369,10 @@
               "path": "UI/Angular/Dom-Insertion-Service.md"
             },
             {
+              "text": "ContentProjectionService",
+              "path": "UI/Angular/Content-Projection-Service.md"
+            },
+            {
               "text": "TrackByService",
               "path": "UI/Angular/Track-By-Service.md"
             }
@@ -357,8 +382,13 @@
           "text": "Common",
           "items": [
             {
-              "text": "Linked List (Doubly)",
-              "path": "UI/Common/Utils/Linked-List.md"
+              "text": "Utilities",
+              "items": [
+                {
+                  "text": "Linked List (Doubly)",
+                  "path": "UI/Common/Utils/Linked-List.md"
+                }
+              ]
             }
           ]
         }
@@ -366,8 +396,11 @@
     },
     {
       "text": "Data Access",
-      "path": "Data-Access.md",
       "items": [
+        {
+          "text": "Overall", 
+          "path": "Data-Access.md"
+        },
         {
           "text": "Connection Strings",
           "path": "Connection-Strings.md"
@@ -450,8 +483,11 @@
     },
     {
       "text": "Startup Templates",
-      "path": "Startup-Templates/Index.md",
       "items": [
+        {
+          "text": "Overall",
+          "path": "Startup-Templates/Index.md"
+        },
         {
           "text": "Application",
           "path": "Startup-Templates/Application.md"
