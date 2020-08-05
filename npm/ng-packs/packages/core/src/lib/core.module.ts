@@ -21,6 +21,7 @@ import { PermissionDirective } from './directives/permission.directive';
 import { ReplaceableTemplateDirective } from './directives/replaceable-template.directive';
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 import { VisibilityDirective } from './directives/visibility.directive';
+import { RoutesHandler } from './handlers/routes.handler';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { LocalizationModule } from './localization.module';
 import { ABP } from './models/common';
@@ -33,10 +34,10 @@ import { ConfigState } from './states/config.state';
 import { ProfileState } from './states/profile.state';
 import { ReplaceableComponentsState } from './states/replaceable-components.state';
 import { SessionState } from './states/session.state';
-import { CORE_OPTIONS } from './tokens/options.token';
+import { CORE_OPTIONS, coreOptionsFactory } from './tokens/options.token';
 import { noop } from './utils/common-utils';
 import './utils/date-extensions';
-import { getInitialData, localeInitializer } from './utils/initial-utils';
+import { getInitialData, localeInitializer, configureOAuth } from './utils/initial-utils';
 
 export function storageFactory(): OAuthStorage {
   return localStorage;
@@ -117,6 +118,7 @@ export class BaseCoreModule {}
     NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
     NgxsRouterPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
+    OAuthModule.forRoot(),
   ],
 })
 export class RootCoreModule {}
@@ -169,13 +171,24 @@ export class CoreModule {
           useValue: { environment: options.environment },
         },
         {
-          provide: CORE_OPTIONS,
+          provide: 'CORE_OPTIONS',
           useValue: options,
+        },
+        {
+          provide: CORE_OPTIONS,
+          useFactory: coreOptionsFactory,
+          deps: ['CORE_OPTIONS'],
         },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ApiInterceptor,
           multi: true,
+        },
+        {
+          provide: APP_INITIALIZER,
+          multi: true,
+          deps: [Injector, NGXS_CONFIG_PLUGIN_OPTIONS],
+          useFactory: configureOAuth,
         },
         {
           provide: APP_INITIALIZER,
@@ -195,7 +208,12 @@ export class CoreModule {
           deps: [LocalizationService],
           useFactory: noop,
         },
-        ...OAuthModule.forRoot().providers,
+        {
+          provide: APP_INITIALIZER,
+          multi: true,
+          deps: [RoutesHandler],
+          useFactory: noop,
+        },
         { provide: OAuthStorage, useFactory: storageFactory },
       ],
     };
